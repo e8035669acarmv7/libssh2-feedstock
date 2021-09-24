@@ -11,7 +11,7 @@ source:
     - 246c7cb0184b9e1a882c753b412825799c7a9118.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
