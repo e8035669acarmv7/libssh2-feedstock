@@ -27,7 +27,7 @@ outputs:
         - cmake-binary     # [win]
         - cmake-no-system  # [not win]
         - {{ compiler('c') }}   # [not (osx and arm64)]
-        - {{ compiler('clang_bootstrap') }}   # [osx and arm64]
+        - {{ compiler('clang_bootstrap') }} 11.*  # [osx and arm64]
         - cctools_{{ target_platform }}  # [osx and arm64]
         - ninja  # [win]
         - make   # [unix]
