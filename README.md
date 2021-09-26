@@ -227,4 +227,5 @@ Feedstock Maintainers
 * [@nehaljwani](https://github.com/nehaljwani/)
 * [@ocefpaf](https://github.com/ocefpaf/)
 * [@shadowwalkersb](https://github.com/shadowwalkersb/)
+* [@xhochy](https://github.com/xhochy/)
 

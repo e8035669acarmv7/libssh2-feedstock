@@ -1,7 +1,7 @@
 {% set version = "1.10.0" %}
 
 package:
-  name: libssh2
+  name: libssh2-split
   version: {{ version }}
 
 source:
@@ -11,30 +11,29 @@ source:
     - 246c7cb0184b9e1a882c753b412825799c7a9118.patch
 
 build:
-  number: 1
-
-requirements:
-  build:
-    # This breals a dependency cycle:
-    # curl->libssh2->cmake->curl
-    - cmake-binary     # [win]
-    - cmake-no-system  # [not win]
-    - {{ compiler('c') }}   # [not (osx and arm64)]
-    - {{ compiler('clang_bootstrap') }}   # [osx and arm64]
-    - ninja  # [win]
-    - make   # [unix]
-  host:
-    - openssl
-    - zlib
-  run:
-    - openssl
-    - zlib
+  number: 2
 
 outputs:
   - name: libssh2
+    script: build_shared.sh  # [unix]
+    script: bld_shared.bat  # [win]
     build:
       run_exports:
         - {{ pin_subpackage('libssh2') }}
+    requirements:
+      build:
+        # This breals a dependency cycle:
+        # curl->libssh2->cmake->curl
+        - cmake-binary     # [win]
+        - cmake-no-system  # [not win]
+        - {{ compiler('c') }}   # [not (osx and arm64)]
+        - {{ compiler('clang_bootstrap') }} 11.*  # [osx and arm64]
+        - cctools_{{ target_platform }}  # [osx and arm64]
+        - ninja  # [win]
+        - make   # [unix]
+      host:
+        - openssl
+        - zlib
     test:
       commands:
         - test -f $PREFIX/include/libssh2.h              # [not win]
@@ -63,9 +62,11 @@ outputs:
         - ninja  # [win]
         - make   # [unix]
       host:
-        - libssh2
+        - {{ pin_subpackage("libssh2", exact=True) }}
         - openssl
         - zlib
+      run:
+        - {{ pin_subpackage("libssh2", exact=True) }}
     test:
       commands:
         - test -f $PREFIX/lib/libssh2.a                         # [not win]
@@ -83,7 +84,9 @@ about:
   dev_url: https://github.com/libssh2/libssh2
 
 extra:
+  feedstock-name: libssh2
   recipe-maintainers:
     - shadowwalkersb
     - nehaljwani
     - ocefpaf
+    - xhochy
