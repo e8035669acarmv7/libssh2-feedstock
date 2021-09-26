@@ -1,7 +1,7 @@
 {% set version = "1.10.0" %}
 
 package:
-  name: libssh2
+  name: libssh2-split
   version: {{ version }}
 
 source:
@@ -84,6 +84,7 @@ about:
   dev_url: https://github.com/libssh2/libssh2
 
 extra:
+  feedstock-name: libssh2
   recipe-maintainers:
     - shadowwalkersb
     - nehaljwani
