@@ -11,7 +11,7 @@ source:
     - 246c7cb0184b9e1a882c753b412825799c7a9118.patch
 
 build:
-  number: 2
+  number: 3
 
 outputs:
   - name: libssh2
@@ -22,9 +22,9 @@ outputs:
         - {{ pin_subpackage('libssh2') }}
     requirements:
       build:
-        # This breals a dependency cycle:
+        # This breals a dependency cycle on unix
         # curl->libssh2->cmake->curl
-        - cmake-binary     # [win]
+        - cmake            # [win]
         - cmake-no-system  # [not win]
         - {{ compiler('c') }}   # [not (osx and arm64)]
         - {{ compiler('clang_bootstrap') }} 11.*  # [osx and arm64]
@@ -49,14 +49,13 @@ outputs:
         - if not exist %LIBRARY_LIB%\\libssh2.lib         exit 1  # [win]
 
   - name: libssh2-static
-    build:
     script: build_static.sh  # [unix]
     script: bld_static.bat  # [win]
     requirements:
       build:
-        # This breals a dependency cycle:
+        # This breals a dependency cycle on unix
         # curl->libssh2->cmake->curl
-        - cmake-binary     # [win]
+        - cmake            # [win]
         - cmake-no-system  # [not win]
         - {{ compiler('c') }}
         - ninja  # [win]
