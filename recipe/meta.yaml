@@ -49,7 +49,6 @@ outputs:
         - if not exist %LIBRARY_LIB%\\libssh2.lib         exit 1  # [win]
 
   - name: libssh2-static
-    build:
     script: build_static.sh  # [unix]
     script: bld_static.bat  # [win]
     requirements:
