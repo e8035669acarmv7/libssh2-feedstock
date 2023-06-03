@@ -10,6 +10,7 @@ mkdir build_static && cd build_static
 cmake -GNinja ^
     -D CMAKE_BUILD_TYPE=Release ^
     -D BUILD_SHARED_LIBS=OFF ^
+    -D BUILD_STATIC_LIBS=ON ^
     -D CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
     -D CMAKE_PREFIX_PATH=%LIBRARY_PREFIX% ^
     -D ENABLE_ZLIB_COMPRESSION=ON ^
@@ -28,6 +29,7 @@ mkdir build_shared && cd build_shared
 cmake -GNinja ^
     -D CMAKE_BUILD_TYPE=Release ^
     -D BUILD_SHARED_LIBS=ON ^
+    -D BUILD_STATIC_LIBS=OFF ^
     -D CMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
     -D CMAKE_PREFIX_PATH=%LIBRARY_PREFIX% ^
     -D ENABLE_ZLIB_COMPRESSION=ON ^
